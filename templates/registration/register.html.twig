@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Sign Up{% endblock %}
+
+{% block body %}
+<div class="ui middle aligned center aligned grid" style="min-height: 100vh;">
+    <div class="column" style="max-width: 450px;">
+        <h2 class="ui teal header">
+            <div class="content">Creation d'un compte</div>
+        </h2>
+
+        {% if form_errors(registrationForm) %}
+            <div class="ui negative message">
+                <div class="header">There were some problems with your submission:</div>
+                <ul>
+                    {% for error in form_errors(registrationForm) %}
+                        <li>{{ error.message }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+        {{ form_start(registrationForm, { attr: { class: 'ui large form' } }) }}
+        <div class="ui stacked segment">
+            <div class="field">
+                {{ form_label(registrationForm.email, 'Email') }}
+                <div class="ui left icon input">
+                    <i class="envelope icon"></i>
+                    {{ form_widget(registrationForm.email, { attr: { placeholder: 'Enter your email' } }) }}
+                </div>
+            </div>
+            <div class="field">
+                {{ form_label(registrationForm.plainPassword, 'Password') }}
+                <div class="ui left icon input">
+                    <i class="lock icon"></i>
+                    {{ form_widget(registrationForm.plainPassword, { attr: { placeholder: 'Create a password' } }) }}
+                </div>
+            </div>
+           
+            <button class="ui fluid large teal submit button">Inscription</button>
+        </div>
+        {{ form_end(registrationForm) }}
+
+        <div class="ui message">
+            Déjà un compte? <a href="{{ path('app_login') }}">Connexion</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
