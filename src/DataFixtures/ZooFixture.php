@@ -10,14 +10,14 @@ class ZooFixture extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-      $zoo1 = new Zoo();
-      $zoo1->setName('Zoo de Paris')
-           ->setAddress('Route de la Trinité, 75012 Paris')
-           ->setCapacity(500)
-           ->setFoundedYear(1934)
-           ->setDescription('Un zoo historique au cœur de Paris');
+      // $zoo1 = new Zoo();
+      // $zoo1->setName('Zoo de Paris')
+      //      ->setAddress('Route de la Trinité, 75012 Paris')
+      //      ->setCapacity(500)
+      //      ->setFoundedYear(1934)
+      //      ->setDescription('Un zoo historique au cœur de Paris');
       
-      $manager->persist($zoo1);
-      $manager->flush();
+      // $manager->persist($zoo1);
+      // $manager->flush();
     }
 }

@@ -1,0 +1,49 @@
+<div class="ui segment">
+	<div class="container">
+
+		{{ form_start(form, {'attr': {'class': 'ui form'}}) }}
+
+		<div class="field">
+			{{ form_label(form.name, 'Nom de l\'animal') }}
+    {{ form_widget(form.name, {'attr': {'placeholder': 'Entrez le nom de l\'animal'}}) }}
+			{{ form_errors(form.name) }}
+		</div>
+
+		<div class="field">
+			{{ form_label(form.imageUrl, 'URL de l\'image') }}
+    {{ form_widget(form.imageUrl, {'attr': {'placeholder': 'Entrez l\'URL de l\'image'}}) }}
+    {{ form_errors(form.imageUrl) }}
+</div>
+
+<div class="field">
+    {{ form_label(form.isDangerous, 'Dangereux') }}
+    {{ form_widget(form.isDangerous) }}
+    {{ form_errors(form.isDangerous) }}
+</div>
+
+<div class="field">
+    {{ form_label(form.continent, 'Continent') }}
+    {{ form_widget(form.continent) }}
+    {{ form_errors(form.continent) }}
+</div>
+
+<div class="field">
+    {{ form_label(form.famille, 'Famille') }}
+    {{ form_widget(form.famille) }}
+    {{ form_errors(form.famille) }}
+</div>
+
+<div class="field">
+    {{ form_label(form.zoo, 'Zoo') }}
+    {{ form_widget(form.zoo) }}
+    {{ form_errors(form.zoo) }}
+</div>
+
+<button type="submit" class="ui green button">
+    <i class="check icon"></i> {{ button_label|default('Enregistrer') }}
+</button>
+
+{{ form_end(form) }}
+
+</div>
+</div>
