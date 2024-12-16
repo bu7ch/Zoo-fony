@@ -25,6 +25,9 @@ class Animal
     #[ORM\ManyToOne(inversedBy: 'animals')]
     private ?Continent $continent = null;
 
+    #[ORM\ManyToOne(inversedBy: 'animals')]
+    private ?Famille $famille = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -74,6 +77,18 @@ class Animal
     public function setContinent(?Continent $continent): static
     {
         $this->continent = $continent;
+
+        return $this;
+    }
+
+    public function getFamille(): ?Famille
+    {
+        return $this->famille;
+    }
+
+    public function setFamille(?Famille $famille): static
+    {
+        $this->famille = $famille;
 
         return $this;
     }
