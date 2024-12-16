@@ -1,43 +1,61 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Zoo index{% endblock %}
+{% block title %}Liste des Zoos{% endblock %}
 
 {% block body %}
-    <h1>Zoo index</h1>
+<div class="ui segment">
+    <h1 class="ui header">
+        <i class="university icon"></i>
+        <div class="content">
+            Liste des Zoos
+            {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('app_zoo_new') }}" class="ui right floated green button">
+                    <i class="plus icon"></i> Nouveau Zoo
+                </a>
+            {% endif %}
+        </div>
+    </h1>
 
-    <table class="table">
+    <table class="ui very padded striped table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Address</th>
-                <th>Capacity</th>
-                <th>FoundedYear</th>
-                <th>Description</th>
-                <th>actions</th>
+                <th>Nom</th>
+                <th>Adresse</th>
+                <th>Capacité</th>
+                <th>Année de Fondation</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-        {% for zoo in zoos %}
-            <tr>
-                <td>{{ zoo.id }}</td>
-                <td>{{ zoo.name }}</td>
-                <td>{{ zoo.address }}</td>
-                <td>{{ zoo.capacity }}</td>
-                <td>{{ zoo.foundedYear }}</td>
-                <td>{{ zoo.description }}</td>
-                <td>
-                    <a href="{{ path('app_zoo_show', {'id': zoo.id}) }}">show</a>
-                    <a href="{{ path('app_zoo_edit', {'id': zoo.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="7">no records found</td>
-            </tr>
-        {% endfor %}
+            {% for zoo in zoos %}
+                <tr>
+                    <td>{{ zoo.name }}</td>
+                    <td>{{ zoo.address }}</td>
+                    <td>{{ zoo.capacity }} animaux</td>
+                    <td>{{ zoo.foundedYear }}</td>
+                    <td>
+                        <div class="ui compact menu">
+                            <a href="{{ path('app_zoo_show', {'id': zoo.id}) }}" class="item" title="Détails">
+                                <i class="eye icon"></i>
+                            </a>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <a href="{{ path('app_zoo_edit', {'id': zoo.id}) }}" class="item" title="Modifier">
+                                    <i class="edit icon"></i>
+                                </a>
+                            {% endif %}
+                        </div>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5" class="center aligned">
+                        <div class="ui warning message">
+                            Aucun zoo n'a été trouvé.
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('app_zoo_new') }}">Create new</a>
+</div>
 {% endblock %}

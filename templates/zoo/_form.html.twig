@@ -1,4 +1,46 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+{{ form_start(form, {'attr': {'class': 'ui form'}}) }}
+        <div class="two fields">
+            <div class="field">
+                {{ form_label(form.name, 'Nom du Zoo') }}
+                {{ form_widget(form.name, {'attr': {'placeholder': 'Nom du zoo'}}) }}
+                {{ form_errors(form.name, {'attr': {'class': 'ui red label'}}) }}
+            </div>
+            <div class="field">
+                {{ form_label(form.address, 'Adresse') }}
+                {{ form_widget(form.address, {'attr': {'placeholder': 'Adresse du zoo'}}) }}
+                {{ form_errors(form.address, {'attr': {'class': 'ui red label'}}) }}
+            </div>
+        </div>
+
+        <div class="two fields">
+            <div class="field">
+                {{ form_label(form.capacity, 'Capacité') }}
+                {{ form_widget(form.capacity, {'attr': {'placeholder': 'Nombre maximal d\'animaux'}}) }}
+                {{ form_errors(form.capacity, {'attr': {'class': 'ui red label'}}) }}
+            </div>
+            <div class="field">
+                {{ form_label(form.foundedYear, 'Année de Fondation') }}
+                {{ form_widget(form.foundedYear, {'attr': {'placeholder': 'Année de création du zoo'}}) }}
+                {{ form_errors(form.foundedYear, {'attr': {'class': 'ui red label'}}) }}
+            </div>
+        </div>
+
+        <div class="field">
+            {{ form_label(form.description, 'Description') }}
+            {{ form_widget(form.description, {'attr': {'placeholder': 'Description du zoo', 'rows': 3}}) }}
+            {{ form_errors(form.description, {'attr': {'class': 'ui red label'}}) }}
+        </div>
+
+        {{ form_rest(form) }}
+
+        <div class="ui buttons">
+            <a href="{{ path('app_zoo_index') }}" class="ui button">Annuler</a>
+            <div class="or"></div>
+            <button type="submit" class="ui positive button">
+                <i class="save icon"></i> 
+                {% if zoo.id %}Modifier{% else %}Créer{% endif %}
+            </button>
+        </div>
+    {{ form_end(form) }}
+</div>
+
