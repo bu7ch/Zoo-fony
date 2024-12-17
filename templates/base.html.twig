@@ -1,23 +1,90 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<title>
-			{% block title %}Welcome!
-			{% endblock %}
-		</title>
-		<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.9.2/dist/semantic.min.css"> {% block stylesheets %}{% endblock %}
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Zoo Management{% endblock %}</title>
+    <link rel="icon" href="{{ asset('favicon.ico') }}">
+    
+    {# Fomantic UI CSS #}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.9.2/dist/semantic.min.css">
+    
+    {# Responsive meta tag #}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    {% block stylesheets %}{% endblock %}
+</head>
+<body>
+    <div class="ui container">
+        {# Navigation #}
+        <div class="ui inverted menu">
+            {# <a href="{{ path('app_home') }}" class="item">Accueil</a> #}
+            <a href="{{ path('app_zoo_index') }}" class="item">Zoos</a>
+            <a href="{{ path('app_animal_index') }}" class="item">Animaux</a>
+            <a href="{{ path('app_continent_index') }}" class="item">Continents</a>
+            
+            <div class="right menu">
+                {% if app.user %}
+                    <a href="{{ path('app_logout') }}" class="item">Déconnexion</a>
+                {% else %}
+                    <a href="{{ path('app_login') }}" class="item">Connexion</a>
+                    <a href="{{ path('app_register') }}" class="item">Inscription</a>
+                {% endif %}
+            </div>
+        </div>
 
-		{% block javascripts %}
-			{% block importmap %}
-				{{ importmap('app') }}
-			{% endblock %}
-		{% endblock %}
-	</head>
-	<body>
-		{% block body %}{% endblock %}
+        {# Flash Messages #}
+        {% for type, messages in app.flashes %}
+            <div class="ui {{ type == 'success' ? 'positive' : (type == 'error' ? 'negative' : 'info') }} message">
+                <div class="header">
+                    {% for message in messages %}
+                        {{ message }}
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+
+        {# Main Content #}
+        {% block body %}{% endblock %}
+    </div>
+
+    {# Fomantic UI JavaScript #}
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/fomantic-ui@2.9.2/dist/semantic.min.js"></script>
+    <script>
+    $(document).ready(function() {
+    // Ajout dynamique de Famille
+    $('#add-famille-btn').on('click', function() {
+        let familleName = $('#new-famille-name').val();
+        let familleDescription = $('#new-famille-description').val();
 
-	</body>
+        $.ajax({
+            url: '/dynamic/famille/new',
+            method: 'POST',
+            data: {
+                famille: {
+                    name: familleName,
+                    description: familleDescription
+                }
+            },
+            success: function(response) {
+                // Ajouter la nouvelle famille au select
+                let selectElement = $('#animal_famille');
+                selectElement.append(`<option value="${response.id}">${response.name}</option>`);
+                selectElement.dropdown('set selected', response.id);
+                
+                // Fermer le modal
+                $('#famille-modal').modal('hide');
+            },
+            error: function(xhr) {
+                // Gérer les erreurs
+                console.error(xhr.responseJSON.errors);
+            }
+        });
+    });
+
+    // Similaire pour l'ajout d'autres entités
+});
+    </script>
+    {% block javascripts %}{% endblock %}
+</body>
 </html>

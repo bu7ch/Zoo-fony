@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer un nouvel animal{% endblock %}
+
+{% block body %}
+<div class="ui segment">
+    <h1 class="ui header">
+        <i class="plus icon"></i>
+        <div class="content">Créer un nouvel animal</div>
+    </h1>
+
+    {% include 'animal/_form.html.twig' with {'form': form, 'button_label': 'Créer'} %}
+    
+    <a href="{{ path('app_animal_index') }}" class="ui button">
+        <i class="arrow left icon"></i> Retour à la liste
+    </a>
+</div>
+{% endblock %}

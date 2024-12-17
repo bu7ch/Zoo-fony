@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% if zoo.id %}Modifier{% else %}Créer{% endif %} un Zoo{% endblock %}
+
+{% block body %}
+<div class="ui segment">
+    <h1 class="ui header">
+        <i class="building icon"></i>
+        <div class="content">
+            {% if zoo.id %}Modifier{% else %}Nouveau{% endif %} Zoo
+        </div>
+    </h1>
+
+   <script>
+    // Validation Fomantic UI
+    document.addEventListener('DOMContentLoaded', function() {
+        $('.ui.form')
+            .form({
+                fields: {
+                    name: 'empty',
+                    address: 'empty',
+                    capacity: ['integer', 'minCount[1]'],
+                    foundedYear: ['integer', 'minCount[1800]', 'maxCount[2024]']
+                }
+            })
+        ;
+    });
+</script>
+{% endblock %}

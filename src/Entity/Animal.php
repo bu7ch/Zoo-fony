@@ -28,6 +28,9 @@ class Animal
     #[ORM\ManyToOne(inversedBy: 'animals')]
     private ?Famille $famille = null;
 
+    #[ORM\ManyToOne(inversedBy: 'animals')]
+    private ?Zoo $zoo = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -89,6 +92,18 @@ class Animal
     public function setFamille(?Famille $famille): static
     {
         $this->famille = $famille;
+
+        return $this;
+    }
+
+    public function getZoo(): ?Zoo
+    {
+        return $this->zoo;
+    }
+
+    public function setZoo(?Zoo $zoo): static
+    {
+        $this->zoo = $zoo;
 
         return $this;
     }

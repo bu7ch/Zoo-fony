@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ animal.name }}{% endblock %}
+
+{% block body %}
+<div class="ui segment">
+    <h1 class="ui header">
+        <i class="paw icon"></i>
+        <div class="content">{{ animal.name }}</div>
+    </h1>
+
+    <div class="ui grid">
+        <div class="eight wide column">
+            <img src="{{ animal.imageUrl }}" alt="{{ animal.name }}" class="ui large rounded image">
+        </div>
+        <div class="eight wide column">
+            <table class="ui definition table">
+                <tbody>
+                    <tr>
+                        <td>Nom</td>
+                        <td>{{ animal.name }}</td>
+                    </tr>
+                    <tr>
+                        <td>Dangereux</td>
+                        <td>
+                            {% if animal.isDangerous %}
+                                <span class="ui red label">Oui</span>
+                            {% else %}
+                                <span class="ui green label">Non</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Continent</td>
+                        <td>{{ animal.continent ? animal.continent.name : 'Non spécifié' }}</td>
+                    </tr>
+                    <tr>
+                        <td>Famille</td>
+                        <td>{{ animal.famille ? animal.famille.name : 'Non spécifiée' }}</td>
+                    </tr>
+                    <tr>
+                        <td>Zoo</td>
+                        <td>{{ animal.zoo ? animal.zoo.name : 'Non spécifié' }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+<br>
+    <a href="{{ path('app_animal_index') }}" class="ui button">
+        <i class="arrow left icon"></i> Retour à la liste
+    </a>
+
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('app_animal_edit', {'id': animal.id}) }}" class="ui yellow button">
+            <i class="edit icon"></i> Modifier
+        </a>
+        {{ include('animal/_delete_form.html.twig') }}
+    {% endif %}
+</div>
+{% endblock %}
