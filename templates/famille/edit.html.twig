@@ -1,0 +1,21 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier la famille{% endblock %}
+
+{% block body %}
+<div class="ui segment">
+    <h1 class="ui header">
+        <i class="edit icon"></i>
+        Modifier la famille
+    </h1>
+
+    {{ include('famille/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+
+    <a href="{{ path('app_famille_index') }}" class="ui button">
+        <i class="arrow left icon"></i> Retour à la liste
+    </a>
+
+    {{ include('famille/_delete_form.html.twig') }}
+</div>
+{% endblock %}

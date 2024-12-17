@@ -1,0 +1,19 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer une nouvelle famille{% endblock %}
+
+{% block body %}
+<div class="ui segment">
+    <h1 class="ui header">
+        <i class="plus icon"></i>
+        Créer une nouvelle famille
+    </h1>
+
+    {{ include('famille/_form.html.twig', {'button_label': 'Créer'}) }}
+
+    <a href="{{ path('app_famille_index') }}" class="ui button">
+        <i class="arrow left icon"></i> Retour à la liste
+    </a>
+</div>
+{% endblock %}

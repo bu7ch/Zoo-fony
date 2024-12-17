@@ -1,0 +1,35 @@
+{# templates/famille/show.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails de la famille{% endblock %}
+
+{% block body %}
+<div class="ui segment">
+    <h1 class="ui header">
+        <i class="eye icon"></i>
+        Détails de la famille
+    </h1>
+
+    <table class="ui very basic table">
+        <tr>
+            <th>Nom</th>
+            <td>{{ famille.name }}</td>
+        </tr>
+        <tr>
+            <th>Description</th>
+            <td>{{ famille.description }}</td>
+        </tr>
+    </table>
+
+    <a href="{{ path('app_famille_index') }}" class="ui button">
+        <i class="arrow left icon"></i> Retour à la liste
+    </a>
+
+    <a href="{{ path('app_famille_edit', {'id': famille.id}) }}" class="ui blue button">
+        <i class="edit icon"></i> Modifier
+    </a>
+
+    {{ include('famille/_delete_form.html.twig') }}
+</div>
+{% endblock %}

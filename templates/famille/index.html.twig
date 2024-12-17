@@ -1,0 +1,53 @@
+{# templates/famille/index.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des familles{% endblock %}
+
+{% block body %}
+<div class="ui segment">
+    <h1 class="ui header">
+        <i class="list icon"></i>
+        Liste des familles
+        <a href="{{ path('app_famille_new') }}" class="ui right floated green button">
+            <i class="plus icon"></i> Nouvelle Famille
+        </a>
+    </h1>
+
+    <table class="ui very padded striped table">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for famille in familles %}
+                <tr>
+                    <td>{{ famille.name }}</td>
+                    <td>{{ famille.description }}</td>
+                    <td>
+                        <div class="ui compact menu">
+                            <a href="{{ path('app_famille_show', {'id': famille.id}) }}" class="item" title="Voir">
+                                <i class="eye icon"></i>
+                            </a>
+                            <a href="{{ path('app_famille_edit', {'id': famille.id}) }}" class="item" title="Modifier">
+                                <i class="edit icon"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3" class="center aligned">
+                        <div class="ui warning message">
+                            Aucun élément trouvé.
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

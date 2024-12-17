@@ -1,0 +1,18 @@
+
+{{ form_start(form, {'attr': {'class': 'ui form'}}) }}
+    <div class="field">
+        {{ form_label(form.name, 'Nom de la famille') }}
+        {{ form_widget(form.name, {'attr': {'class': 'ui input'}}) }}
+        {{ form_errors(form.name) }}
+    </div>
+
+    <div class="field">
+        {{ form_label(form.description, 'Description') }}
+        {{ form_widget(form.description, {'attr': {'class': 'ui input'}}) }}
+        {{ form_errors(form.description) }}
+    </div>
+
+    <button type="submit" class="ui primary button">
+        <i class="save icon"></i> {{ button_label|default('Enregistrer') }}
+    </button>
+{{ form_end(form) }}
