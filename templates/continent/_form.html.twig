@@ -1,4 +1,13 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_start(form, {'attr': {'class': 'ui form'}}) }}
+
+<div class="field">
+    {{ form_label(form.name, 'Nom du continent') }}
+    {{ form_widget(form.name, {'attr': {'placeholder': 'Entrez le nom du continent'}}) }}
+    {{ form_errors(form.name) }}
+</div>
+
+<button type="submit" class="ui green button">
+    <i class="check icon"></i> {{ button_label|default('Enregistrer') }}
+</button>
+
 {{ form_end(form) }}

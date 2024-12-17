@@ -1,35 +1,53 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Continent index{% endblock %}
+{% block title %}Liste des continents{% endblock %}
 
 {% block body %}
-    <h1>Continent index</h1>
+<div class="ui segment">
+    <h1 class="ui header">
+        <i class="globe icon"></i>
+        <div class="content">
+            Liste des continents
+            {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('app_continent_new') }}" class="ui right floated green button">
+                    <i class="plus icon"></i> Ajouter un continent
+                </a>
+            {% endif %}
+        </div>
+    </h1>
 
-    <table class="table">
+    <table class="ui very padded striped table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>actions</th>
+                <th>Nom</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-        {% for continent in continents %}
-            <tr>
-                <td>{{ continent.id }}</td>
-                <td>{{ continent.name }}</td>
-                <td>
-                    <a href="{{ path('app_continent_show', {'id': continent.id}) }}">show</a>
-                    <a href="{{ path('app_continent_edit', {'id': continent.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
+            {% for continent in continents %}
+                <tr>
+                    <td>{{ continent.name }}</td>
+                    <td>
+                        <a href="{{ path('app_continent_show', {'id': continent.id}) }}" class="ui small icon button">
+                            <i class="eye icon"></i>
+                        </a>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a href="{{ path('app_continent_edit', {'id': continent.id}) }}" class="ui small yellow icon button">
+                                <i class="edit icon"></i>
+                            </a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="2" class="center aligned">
+                        <div class="ui warning message">
+                            Aucun continent n'a été trouvé.
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('app_continent_new') }}">Create new</a>
+</div>
 {% endblock %}

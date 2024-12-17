@@ -1,17 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Modifier un Animal
-{% endblock %}
+{% block title %}Modifier {{ animal.name }}{% endblock %}
 
 {% block body %}
-	<div class="ui segment">
-		<h1>Modifier un Animal</h1>
+<div class="ui segment">
+    <h1 class="ui header">
+        <i class="edit icon"></i>
+        <div class="content">Modifier {{ animal.name }}</div>
+    </h1>
 
-		{{ include('animal/_form.html.twig', {'button_label': 'Update'}) }}
+    {% include 'animal/_form.html.twig' with {'form': form, 'button_label': 'Modifier'} %}
 
-		<a href="{{ path('app_animal_index') }}">Retour à la liste</a>
-
-	</div>
-	{{ include('animal/_delete_form.html.twig') }}
-
+    <a href="{{ path('app_animal_index') }}" class="ui button">
+        <i class="arrow left icon"></i> Retour à la liste
+    </a>
+<br>
+<br>
+    {{ include('animal/_delete_form.html.twig') }}
+</div>
 {% endblock %}

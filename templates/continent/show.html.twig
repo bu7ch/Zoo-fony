@@ -1,26 +1,32 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Continent{% endblock %}
+{% block title %}{{ continent.name }}{% endblock %}
 
 {% block body %}
-    <h1>Continent</h1>
+<div class="ui segment">
+    <h1 class="ui header">
+        <i class="globe icon"></i>
+        <div class="content">{{ continent.name }}</div>
+    </h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ continent.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ continent.name }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="ui list">
+        <div class="item">
+            <i class="globe icon"></i>
+            <div class="content">
+                <strong>Nom :</strong> {{ continent.name }}
+            </div>
+        </div>
+    </div>
 
-    <a href="{{ path('app_continent_index') }}">back to list</a>
+    <a href="{{ path('app_continent_index') }}" class="ui button">
+        <i class="arrow left icon"></i> Retour à la liste
+    </a>
 
-    <a href="{{ path('app_continent_edit', {'id': continent.id}) }}">edit</a>
-
-    {{ include('continent/_delete_form.html.twig') }}
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('app_continent_edit', {'id': continent.id}) }}" class="ui yellow button">
+            <i class="edit icon"></i> Modifier
+        </a>
+        {{ include('continent/_delete_form.html.twig') }}
+    {% endif %}
+</div>
 {% endblock %}
